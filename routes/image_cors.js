@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
     'Origin': 'https://www.instagram.com'
   }
   // 判断是否时是正确网址
-  if(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|mp4|bmp)$/.test(imgUrl.split('?')[0]) === false){
+  if(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|mp4|bmp|webp)$/.test(imgUrl.split('?')[0]) === false){
     return sendErrorImage(res)
   }
 
@@ -32,7 +32,8 @@ router.get('/', function(req, res, next) {
       .then((e)=>{
         res.status(200).type(type).send(e)
       })
-      .catch(()=>{
+      .catch((e)=>{
+        console.log(e)
         sendErrorImage(res)
       })
 });
