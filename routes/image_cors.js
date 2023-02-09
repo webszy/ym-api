@@ -2,7 +2,7 @@ const fs = require("fs");
 const router = require('express').Router();
 const randomUseragent  = require('random-useragent')
 const errorPng = require('path').resolve(__dirname, '../public/error.png')
-const sendErrorImage = (res)=> fs.createReadStream(errorPng).pipe(res.status(200).type('png'))
+const sendErrorImage = (res)=> fs.createReadStream(errorPng).pipe(res.status(202).type('png'))
 // const HttpsProxyAgent = require("https-proxy-agent");
 // const agent = new HttpsProxyAgent('http://127.0.0.1:7890')
 router.get('/', function(req, res, next) {
