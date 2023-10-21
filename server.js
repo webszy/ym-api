@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const app = require('../app');
+const app = require('./app');
 const debug = require('debug')('ym-api:server');
 const http = require('http');
 
@@ -25,7 +25,7 @@ const server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port,'0.0.0.0');
+server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
