@@ -61,9 +61,12 @@ function onError(error) {
   const bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
-
+  console.log('------error occurred-----');
+  console.log(error);
+  console.log('------error occurred-----');
   // handle specific listen errors with friendly messages
   switch (error.code) {
+
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
       process.exit(1);
