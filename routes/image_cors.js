@@ -7,16 +7,28 @@ const sendErrorImage = (res)=> fs.createReadStream(errorPng).pipe(res.status(202
 // const agent = new HttpsProxyAgent('http://127.0.0.1:7890')
 router.get('/', function(req, res, next) {
   const download = require('download')
-  let imgUrl = decodeURIComponent(req.query.url).trim()
+  const imgUrl = decodeURIComponent(req.query.url).trim()
+  // 判断来源，兼容tiktok
+  let originStr = ''
+  switch (req.query.origin || 'instagram'){
+    case 'tiktok':{
+      originStr = 'https://www.tiktok.com/'
+      break
+    }
+    default:{
+      originStr = 'https://www.instagram.com/'
+      break
+    }
+  }
   const headers={
     'User-Agent': randomUseragent.getRandom(),
-    'Referer': 'https://www.instagram.com/',
-    'Origin': 'https://www.instagram.com'
+    'Referer': originStr,
+    'Origin': originStr
   }
   // 判断是否时是正确网址
-  if(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|mp4|bmp|webp)$/.test(imgUrl.split('?')[0]) === false){
-    return sendErrorImage(res)
-  }
+  // if(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg|mp4|bmp|webp)$/.test(imgUrl.split('?')[0]) === false){
+  //   return sendErrorImage(res)
+  // }
 
   const isVideo = imgUrl.split('?')[0].toLowerCase().endsWith('mp4')
   const type=isVideo ? 'mp4' : 'png'
